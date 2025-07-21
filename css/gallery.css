@@ -1,0 +1,105 @@
+/* Base styles for gallery.html */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 clamp(1rem, 5%, 4rem);
+    background-color: #1c1816;
+    color: #b29c86ff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 1.2rem;
+    margin: 0;
+    min-height: 100vh;
+}
+.lang-container {
+    position: sticky;
+    top: 10px;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    z-index: 10;
+    background-color: #262626;
+}
+.lang-button {
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: #262626;
+    color: #d3b06eff;
+    border: 1px solid #fde1bc;
+    border-radius: 4px;
+}
+.lang-button:hover,
+.lang-button:focus {
+    background-color: #ffe793ff;
+    color: #262626;
+    outline: 2px solid #fde1bc;
+}
+.lang-button.active {
+    background-color: #4a4725ff;
+    color: #eeca89;
+}
+.title {
+    text-align: center;
+}
+footer {
+    margin-top: 50px;
+    font-size: 1rem;
+    text-align: center;
+}
+footer a {
+    color: #ffe793ff;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+.kizungu,
+.kiswahili {
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    will-change: opacity;
+}
+.kizungu.active,
+.kiswahili.active {
+    opacity: 1;
+}
+.kizungu:not(.active),
+.kiswahili:not(.active) {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Gallery-specific styles */
+.grid-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 700px;
+    margin: 20px auto;
+}
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+@media (max-width: 600px) {
+    body {
+        font-size: 1.1rem;
+        padding: 0 clamp(0.5rem, 3%, 2rem);
+    }
+    .lang-button {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    .lang-container {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    footer {
+        font-size: 0.9rem;
+    }
+}

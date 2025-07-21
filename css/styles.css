@@ -1,0 +1,299 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 clamp(1rem, 5%, 4rem);
+    background-color: #1c1816;
+    color: #b29c86ff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 1.2rem;
+    margin: 0;
+    min-height: 100vh;
+}
+.lang-container {
+    position: sticky;
+    top: 10px;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    z-index: 10;
+    background-color: #262626;
+}
+.lang-button {
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: #262626;
+    color: #d3b06eff;
+    border: 1px solid #fde1bc;
+    border-radius: 4px;
+}
+.lang-button:hover,
+.lang-button:focus {
+    background-color: #ffe793ff;
+    color: #262626;
+    outline: 2px solid #fde1bc;
+}
+.lang-button.active {
+    background-color: #4a4725ff;
+    color: #eeca89;
+}
+.story-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-bottom: 70px;
+    transition: height 0.7s ease;
+    box-sizing: border-box;
+    will-change: height;
+}
+.kizungu,
+.kiswahili {
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    will-change: opacity;
+    padding-bottom: 70px;
+}
+.kizungu.active,
+.kiswahili.active {
+    opacity: 1;
+}
+.kizungu:not(.active),
+.kiswahili:not(.active) {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#genesis,
+#rules {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    loading: lazy;
+}
+.title {
+    text-align: center;
+}
+footer {
+    margin-top: 50px;
+    font-size: 1rem;
+    text-align: center;
+}
+.virtue-title {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin: 20px auto;
+    user-select: none;
+    tabindex: 0;
+}
+.virtue-title:focus {
+    outline: 2px solid #fde1bc;
+}
+.virtue-title .english,
+.virtue-title .swahili {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: opacity 0.3s ease;
+}
+.virtue-title .english {
+    position: relative;
+    opacity: 1;
+}
+.virtue-title .swahili {
+    opacity: 0;
+}
+.virtue-title:hover .english,
+.virtue-title.active .english {
+    opacity: 0;
+}
+.virtue-title:hover .swahili,
+.virtue-title.active .swahili {
+    opacity: 1;
+}
+.virtue-title span span {
+    display: inline-block;
+    opacity: 0;
+    animation: cipher 0.05s ease forwards;
+}
+@keyframes cipher {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.virtue-title::before,
+.virtue-title::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    height: 2px;
+    background-color: #fde1bc;
+    width: 0;
+    transition: width 0.3s ease;
+}
+.virtue-title::before {
+    left: 50%;
+}
+.virtue-title::after {
+    right: 50%;
+}
+.virtue-title:hover::before,
+.virtue-title.active::before,
+.virtue-title:hover::after,
+.virtue-title.active::after {
+    width: 50%;
+}
+
+/* SVG path hover effects */
+#sharing-badge,
+#wisdom-badge,
+#paw-badge,
+#zebra-badge {
+    fill: #3c2817;
+    fill-opacity: 1;
+    transition: fill 0.3s ease;
+}
+
+#sharing-badge:hover,
+#wisdom-badge:hover,
+#paw-badge:hover,
+#zebra-badge:hover {
+    fill: #b29c86ff !important; /* Text color on hover */
+}
+/* Bullet point styling for rules and guidelines */
+#rules .rules-list,
+#rules .guidelines-list {
+    list-style: none;
+    padding-left: 1.5rem;
+    text-align: left;
+    margin: 0;
+}
+
+#rules .rules-list li,
+#rules .guidelines-list li {
+    position: relative;
+    margin-bottom: 0.75rem;
+    padding-left: 1.25rem;
+}
+
+#rules .rules-list li::before,
+#rules .guidelines-list li::before {
+    content: "▹ ";
+    position: absolute;
+    left: 0;
+    color: #3ffe793ff;
+    font-size: 1.2rem;
+}
+
+#rules .rules-list ul,
+#rules .guidelines-list ul {
+    list-style: none;
+    padding-left: 2rem;
+    margin-top: 0.5rem;
+}
+
+#rules .rules-list ul li::before,
+#rules .guidelines-list ul li::before {
+    content: "– ";
+    color: #6fde1bc;
+    font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+    #rules .rules-list ul,
+    #rules .guidelines-list ul {
+        padding-left: 1.5rem;
+    }
+    }
+    #rules .rules-list li,
+    #rules .guidelines-list li {
+        padding-left: 1.2rem;
+        font-size: 1rem;
+    }
+    #rules .rules-list li::before,
+    #rules .guidelines-list li::before {
+        font-size: 1rem;
+    }
+    r#rules .rules-list ul,
+    #rules .guidelines-list ul {
+        padding-left: 1.5rem;
+    }
+}
+#countdown {
+    font-size: 1.5rem;
+    color: #ffe793ff;
+    margin: 20px auto;
+    text-align: center;
+}
+@media (max-width: 600px) {
+    body {
+        font-size: 1.1rem;
+        padding: 0 clamp(0.5rem, 3%, 2rem);
+    }
+    .story-container,
+    .kizungu,
+    .kiswahili {
+        padding-bottom: 50px;
+    }
+    .lang-button {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    .lang-container {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    footer {
+        font-size: 0.9rem;
+    }
+    #countdown {
+        font-size: 1.2rem;
+    }
+}
+.grid-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 700px;
+    margin: 20px auto;
+}
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+* Additional styles for X posts */
+.x-post {
+    border: 1px solid #fde1bc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    max-width: 700px;
+    text-align: left;
+}
+.x-post a {
+    color: #ffe793ff;
+    text-decoration: none;
+}
+.x-post a:hover {
+    text-decoration: underline;
+}

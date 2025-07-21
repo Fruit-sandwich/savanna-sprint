@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Gallery of submitted artworks for the Savanna Legacy Sprint, showcasing African virtues on Arweave.">
+    <title>Savanna Legacy Sprint - Gallery</title>
+    <link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+    <div class="lang-container">
+        <button class="lang-button active" id="english" onclick="switchLanguage('english')" aria-label="Switch to English">English</button>
+        <button class="lang-button" id="kiswahili" onclick="switchLanguage('kiswahili')" aria-label="Switch to Swahili">Kiswahili</button>
+    </div>
+    <main>
+        <h1 class="title">SAVANNA LEGACY SPRINT GALLERY</h1>
+        <div id="gallery-section">
+            <h2 class="kizungu active">Submitted Artworks</h2>
+            <h2 class="kiswahili">Kazi za Sanaa Zilizowasilishwa</h2>
+            <div id="virtue-filters" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                <button class="lang-button" onclick="filterGallery('All')">All</button>
+                <button class="lang-button" onclick="filterGallery('Courage')">Courage</button>
+                <button class="lang-button" onclick="filterGallery('Focus')">Focus</button>
+                <button class="lang-button" onclick="filterGallery('Patience')">Patience</button>
+                <button class="lang-button" onclick="filterGallery('Sharing')">Sharing</button>
+                <button class="lang-button" onclick="filterGallery('Unity')">Unity</button>
+            </div>
+            <div id="gallery" class="grid-gallery"></div>
+            <button id="load-more" class="lang-button" onclick="loadGallery(currentPage + 1, 10)" style="display: none;">Load More</button>
+        </div>
+    </main>
+    <footer>
+        <p>Savanna Legacy Sprint © 2025</p>
+        <p><a href="index.html">Back to Main Page</a></p>
+    </footer>
+    <script src="js/main.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/stamps.js"></script>
+</body>
+</html>
