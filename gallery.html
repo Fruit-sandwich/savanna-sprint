@@ -1,40 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Gallery of submitted artworks for the Savanna Legacy Sprint, showcasing African virtues on Arweave.">
-    <title>Savanna Legacy Sprint - Gallery</title>
-    <link rel="stylesheet" href="css/gallery.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Gallery of submitted artworks for the Savanna Legacy Sprint, showcasing African virtues on Arweave.">
+  <title>Savanna Legacy Sprint - Gallery</title>
+  <link rel="stylesheet" href="css/gallery.css">
 </head>
 <body>
-    <div class="lang-container">
-        <button class="lang-button active" id="english" onclick="switchLanguage('english')" aria-label="Switch to English">English</button>
-        <button class="lang-button" id="kiswahili" onclick="switchLanguage('kiswahili')" aria-label="Switch to Swahili">Kiswahili</button>
+  <!-- Language & Wallet Bar -->
+  <div class="lang-container">
+    <div class="lang-buttons">
+      <button class="lang-button active" id="english" onclick="switchLanguage('english')">English</button>
+      <button class="lang-button" id="kiswahili" onclick="switchLanguage('kiswahili')">Kiswahili</button>
     </div>
-    <main>
-        <h1 class="title">SAVANNA LEGACY SPRINT GALLERY</h1>
-        <div id="gallery-section">
-            <h2 class="kizungu active">Submitted Artworks</h2>
-            <h2 class="kiswahili">Kazi za Sanaa Zilizowasilishwa</h2>
-            <div id="virtue-filters" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
-                <button class="lang-button" onclick="filterGallery('All')">All</button>
-                <button class="lang-button" onclick="filterGallery('Courage')">Courage</button>
-                <button class="lang-button" onclick="filterGallery('Focus')">Focus</button>
-                <button class="lang-button" onclick="filterGallery('Patience')">Patience</button>
-                <button class="lang-button" onclick="filterGallery('Sharing')">Sharing</button>
-                <button class="lang-button" onclick="filterGallery('Unity')">Unity</button>
-            </div>
-            <div id="gallery" class="grid-gallery"></div>
-            <button id="load-more" class="lang-button" onclick="loadGallery(currentPage + 1, 10)" style="display: none;">Load More</button>
-        </div>
-    </main>
-    <footer>
-        <p>Savanna Legacy Sprint © 2025</p>
-        <p><a href="index.html">Back to Main Page</a></p>
-    </footer>
-    <script src="js/main.js"></script>
-    <script src="js/gallery.js"></script>
-    <script src="js/stamps.js"></script>
+    <div class="wallet-section">
+      <button id="connect-wallet-btn">Connect Wallet</button>
+      <p id="wallet-address"></p>
+    </div>
+  </div>
+
+  <main>
+    <h1 class="title">SAVANNA LEGACY SPRINT GALLERY</h1>
+    <div id="gallery-section">
+      <h2 class="kizungu active title">Submitted Artworks</h2>
+      <h2 class="kiswahili title">Kazi za Sanaa Zilizowasilishwa</h2>
+
+      <!-- Virtue filters -->
+      <div id="virtue-filters">
+        <button class="lang-button" onclick="filterGallery('All')">All</button>
+        <button class="lang-button" onclick="filterGallery('Courage')">Courage</button>
+        <button class="lang-button" onclick="filterGallery('Focus')">Focus</button>
+        <button class="lang-button" onclick="filterGallery('Patience')">Patience</button>
+        <button class="lang-button" onclick="filterGallery('Sharing')">Sharing</button>
+        <button class="lang-button" onclick="filterGallery('Unity')">Unity</button>
+        <button class="lang-button" onclick="filterGallery('Wisdom')">Wisdom</button>
+      </div>
+
+      <!-- Gallery container -->
+      <div id="gallery" class="grid-gallery"></div>
+      <button id="load-more" class="lang-button" onclick="loadMoreAssets()" style="display: none;">Load More</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>Savanna Legacy Sprint © 2025</p>
+    <p><a href="index.html">Back to Main Page</a></p>
+  </footer>
+
+  <!-- Script order: bundle → utils → app -->
+  <script src="js/aoconnect.bundle.js"></script>
+  <script type="module" src="js/wallet-utils.js"></script>
+  <script type="module" src="js/ao-utils.js"></script>
+  <script type="module" src="js/gallery.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/stamps.js"></script>
 </body>
 </html>

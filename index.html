@@ -1,128 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Announcing the Savanna Legacy Sprint, a 10-week art challenge celebrating African virtues on Arweave.">
-    <title>Savanna Legacy Sprint</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Announcing the Savanna Legacy Sprint, a 10-week art challenge celebrating African virtues on Arweave.">
+  <title>Savanna Legacy Sprint</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="lang-container">
-        <button class="lang-button active" id="english" onclick="switchLanguage('english')" aria-label="Switch to English">English</button>
-        <button class="lang-button" id="kiswahili" onclick="switchLanguage('kiswahili')" aria-label="Switch to Swahili">Kiswahili</button>
-    </div>
-    <main>
-        <h1 class="title">CULTURAL PERMANENCE AND THE VIRTUES</h1>
-        <div id="genesis">
-            <h2>A SAVANNA LEGACY SPRINT</h2>
-            <img src="https://rwwclaleo4zhus7pbzyrf2qv3kcb3lnsaoqgzuwkows7kyltuxoq.arweave.net/jawlgWR3MnpL7w5xEuoV2oQdrbIDoGzSynWl9WFzpd0" alt="Digital artwork of an African hunter gatherer in full sprint" loading="lazy">
-            <div id="badges-svg"> </div>
-            <div>
-                <a href="https://6idpvy4365uvsrhcdzoxdf3cnyxy2oqokjrgnvjox3rrbofqcypa.arweave.net/8gb645v3aVlE4h5dcZdibi-NOg5SYmbVLr7jELiwFh4">THE VIRTUES</a>
-            </div>
-            <div class="story-container">
-                <p class="kizungu active" id="story-en"></p>
-                <p class="kiswahili" id="story-sw"></p>
-            </div>
-            <div id="countdown">Countdown to Deadline: <span id="timer"></span></div>
-            <div id="rules">
-                <h3>Rules and Guidelines</h3>
-                <div class="story-container">
-                    <h4>Rules</h4>
-                    <div class="kizungu active" id="rules-en"></div>
-                    <div class="kiswahili" id="rules-sw"></div>
-                </div>
-                <div class="story-container">
-                    <h4>Guidelines</h4>
-                    <div class="kizungu active" id="guidelines-en"></div>
-                    <div class="kiswahili" id="guidelines-sw"></div>
-                </div>
-            </div>
-            <div id="submission-form">
-                <h3>Submit Your Artwork</h3>
-                <form id="artwork-submission">
-                    <label for="asset-url">Bazar Asset URL:</label>
-                    <input type="url" id="asset-url" name="asset-url" placeholder="https://bazar.arweave.net/#/asset/[ASSET_ID]" required>
-                    <button type="submit">Submit</button>
-                </form>
-                <p id="submission-feedback" style="color: #ffe793ff; text-align: center; margin-top: 10px;"></p>
-                <div class="hourglass" style="position: fixed; bottom: 10px; right: 10px; width: 50px; height: 50px;">
-                    <div id="hourglass-svg"></div>
-                </div>
-            </div>
-            <div id="gallery-link">
-                <a href="gallery.html" target="_blank" class="lang-button">See Entries</a>
-            </div>
-            <div id="community-section">
-                <h3>Community on X</h3>
-                <button class="lang-button" onclick="fetchXPosts()">View #SavannaLegacySprint Posts</button>
-                <div id="x-posts"></div>
-            </div>
-            <h3>Genesis Collection: Cultural Permanence and the Wisdom of the Elephant</h3>
-            <div id="wisdom-stories">
-                <h2 class="virtue-title">
-                    <span class="english">Jewel of the Savannah</span>
-                    <span class="swahili">Kito cha Savanna</span>
-                </h2>
-                <img src="https://het27ofrusmo4jm5jhuynj4owgwo6mbyxrfvwhb5k7546k6i2jxa.arweave.net/OSevuLGkmO4lnUnphqeOsazvMDi8S1scPVf7zyvI0m4" alt="Digital artwork of two colourful elephants with crossing tusks" loading="lazy">
-                <p><a href="https://bazar.arweave.net/#/asset/OSevuLGkmO4lnUnphqeOsazvMDi8S1scPVf7zyvI0m4">view on the bazar</a></p>
-                <div class="story-container">
-                    <p class="kizungu active" id="jewel-en"></p>
-                    <p class="kiswahili" id="jewel-sw"></p>
-                </div>
-                <h2 class="virtue-title">
-                    <span class="english">Moloch at the Mercy of Wisdom</span>
-                    <span class="swahili">Moloch Mikononi Mwa Hekima</span>
-                </h2>
-                <img src="https://aue77phq5audeubxnbstrt3bnzevpttogsbku54kaoiyfoxqvgya.arweave.net/BQn_vPDoKDJQN2hlOM9hbklXzm40gqp3igORgrrwqbA" alt="Digital artwork of a dark eerie space with Moloch and wisdom" loading="lazy">
-                <p><a href="https://bazar.arweave.net/#/asset/BQn_vPDoKDJQN2hlOM9hbklXzm40gqp3igORgrrwqbA">view on the bazar</a></p>
-                <div class="story-container">
-                    <p class="kizungu active" id="moloch-en"></p>
-                    <p class="kiswahili" id="moloch-sw"></p>
-                </div>
-                <h2 class="virtue-title">
-        <span class="english">Maasai Beadweave</span>
-        <span class="swahili">Ushonaji wa Shanga za Maasai</span>
-    </h2>
-    <img src="https://arweave.net/PLACEHOLDER_MAASAI_IMAGE_ID" alt="Digital artwork of Maasai beadwork patterns symbolizing unity" loading="lazy">
-    <p><a href="https://bazar.arweave.net/#/asset/PLACEHOLDER_MAASAI_ASSET_ID">view on the bazar</a></p>
-    <div class="story-container">
-        <p class="kizungu active" id="maasai-en"></p>
-        <p class="kiswahili" id="maasai-sw"></p>
-    </div>
-    <!-- New Entry: Ndume (Placeholder) -->
-    <h2 class="virtue-title">
-        <span class="english">Ndume</span>
-        <span class="swahili">Ndume</span>
-    </h2>
-    <img src="https://arweave.net/PLACEHOLDER_NDUME_IMAGE_ID" alt="Digital artwork of a powerful lion embodying courage" loading="lazy">
-    <p><a href="https://bazar.arweave.net/#/asset/PLACEHOLDER_NDUME_ASSET_ID">view on the bazar</a></p>
-    <div class="story-container">
-        <p class="kizungu active" id="ndume-en"></p>
-        <p class="kiswahili" id="ndume-sw"></p>
-    </div>
-    <!-- New Entry: Ndovu (Placeholder) -->
-    <h2 class="virtue-title">
-        <span class="english">Ndovu</span>
-        <span class="swahili">Ndovu</span>
-    </h2>
-    <img src="https://arweave.net/PLACEHOLDER_NDOVU_IMAGE_ID" alt="Digital artwork of an elephant representing wisdom" loading="lazy">
-    <p><a href="https://bazar.arweave.net/#/asset/PLACEHOLDER_NDOVU_ASSET_ID">view on the bazar</a></p>
-    <div class="story-container">
-        <p class="kizungu active" id="ndovu-en"></p>
-        <p class="kiswahili" id="ndovu-sw"></p>
-    </div>
-            </div>
+  <!-- Language & Wallet Bar -->
+  <div class="lang-container">
+  <div class="lang-buttons">
+    <button class="lang-button active" id="english" onclick="switchLanguage('english')">English</button>
+    <button class="lang-button" id="kiswahili" onclick="switchLanguage('kiswahili')">Kiswahili</button>
+  </div>
+  <div class="wallet-section">
+    <button id="connect-wallet-btn">Connect Wallet</button>
+    <p id="wallet-address"></p>
+  </div>
+</div>
+
+  <main>
+    <h1 class="title">THE SAVANNA LEGACY SPRINT</h1>
+    <div id="genesis">
+      <h2>CULTURAL PERMANENCE AND THE VIRTUES</h2>
+      <img src="https://rwwclaleo4zhus7pbzyrf2qv3kcb3lnsaoqgzuwkows7kyltuxoq.arweave.net/jawlgWR3MnpL7w5xEuoV2oQdrbIDoGzSynWl9WFzpd0"
+           alt="Digital artwork of an African hunter gatherer in full sprint" loading="lazy">
+      <div id="badges-svg"></div>
+      <div>
+        <a href="https://6idpvy4365uvsrhcdzoxdf3cnyxy2oqokjrgnvjox3rrbofqcypa.arweave.net/8gb645v3aVlE4h5dcZdibi-NOg5SYmbVLr7jELiwFh4" target="_blank">THE VIRTUES</a>
+      </div>
+
+      <!-- Story injected -->
+      <div class="story-container">
+        <p class="kizungu active">
+          What does it look like when a collective of creatives take on the challenge to create culturally resonant and visually distinct depictions of the virtues of Courage, Focus, Patience, Sharing, Unity and wisdom?
+          Join us for a 10-week sprint of intense creativity, from dd/mm/yyyy to dd/mm/yyyy, building on the genesis collection,
+          <a href="https://2gdlgnnfdc47rxrxvbrhtw7vtzqtth53dkvw2c4kbmgjmau5a3aa.arweave.net/0YazNaUYufjeN6hiedv1nmE5n7saq20LigsMlgKdBsA" target="_blank"><i>Cultural Permanence and the Wisdom of the Elephant</i></a>.
+        </p>
+        <p class="kiswahili">
+          Inakuwaje wakati kundi la wabunifu wa Kiafrika linapokabiliana na changamoto ya kuunda maonyesho yanayohusiana na kitamaduni na yanayojitokeza ya wazi ya fadhila za Ujasiri, Kuzingatia, Subira, Kushiriki, na Umoja?
+          Jiunge nasi kwa mbio za wiki 10 za ubunifu wa hali ya juu, kuanzia dd/mm/yyyy hadi dd/mm/yyyy, zikijenga juu ya mkusanyiko wa mwanzo,
+          <i>Udumu wa Kitamaduni na Hekima ya Tembo</i>.
+        </p>
+      </div>
+
+      <div id="countdown">Countdown to Deadline: <span id="timer"></span></div>
+
+      <!-- Rules and Guidelines injected -->
+      <div id="rules">
+        <h3>Rules and Guidelines</h3>
+        <div class="story-container">
+          <h4>Rules</h4>
+          <div class="kizungu active">
+            <ul class="rules-list">
+              <li><strong>Theme</strong>: Each artwork must depict one virtue: Courage (Lion), Focus (Cheetah), Patience (Leopard), Sharing (Giraffe), or Unity (Zebra).</li>
+              <li><strong>Upload</strong>: Submit via Bazar to the Savanna Legacy Sprint collection (dd/mm/yyyy – dd/mm/yyyy).</li>
+              <li><strong>Tags</strong>: Include Virtue, Title, Tools, and a short intent statement (50–100 words).</li>
+              <li><strong>Standards</strong>: Content must be wholesome, respectful, and aligned with the virtues. Hateful or explicit content will be disqualified.</li>
+            </ul>
+          </div>
+          <div class="kiswahili">
+            <ul class="rules-list">
+              <li><strong>Mada</strong>: Kila kazi ya sanaa lazima ionyeshe fadhila moja: Ujasiri (Simba), Kuzingatia (Duma), Subira (Chui), Kushiriki (Twiga), au Umoja (Pundamilia).</li>
+              <li><strong>Pakia</strong>: Wasilisha kupitia Bazar kwenye mkusanyiko wa Savanna Legacy Sprint (dd/mm/yyyy – dd/mm/yyyy).</li>
+              <li><strong>Lebo</strong>: Jumuisha Fadhila, Jina, Zana, na taarifa fupi ya nia (maneno 50–100).</li>
+              <li><strong>Viwango</strong>: Maudhui lazima yawe ya heshima, ya kuhamasisha, na yaendane na fadhila. Maudhui ya chuki au ya wazi yatakataliwa.</li>
+            </ul>
+          </div>
         </div>
-    </main>
-    <footer>
-        <p>Savanna Legacy Sprint © 2025</p>
-        <p><a href="https://bazar.arweave.net/#/collection/SAVANNA_LEGACY_COLLECTION_ID">Submit on Bazar (Opens July 14, 2025)</a></p>
-    </footer>
-    <script src="js/main.js"></script>
-    <script src="js/submission.js"></script>
-    <script src="js/stamps.js"></script>
-    <script src="js/x-integration.js"></script>
+        <div class="story-container">
+          <h4>Guidelines</h4>
+          <div class="kizungu active">
+            <ul class="guidelines-list">
+              <li><strong>Originality</strong>: Only original works are accepted.</li>
+              <li><strong>Timeline</strong>: Submissions open dd/mm/yyyy and close dd/mm/yyyy.</li>
+              <li><strong>Permanence</strong>: All entries are stored on Arweave for lasting cultural impact.</li>
+              <li><strong>Community</strong>: Share your process and support others with <code>#SavannaLegacySprint</code>.</li>
+            </ul>
+          </div>
+          <div class="kiswahili">
+            <ul class="guidelines-list">
+              <li><strong>Asili</strong>: Ni kazi za asili pekee ndizo zinakubaliwa.</li>
+              <li><strong>Ratiba</strong>: Maingizo yanapokelewa kuanzia dd/mm/yyyy hadi dd/mm/yyyy.</li>
+              <li><strong>Udumu</strong>: Maingizo yote yanahifadhiwa kwenye Arweave kwa athari za kudumu za kitamaduni.</li>
+              <li><strong>Jamii</strong>: Shiriki mchakato wako na uunge mkono wengine kwa kutumia <code>#SavannaLegacySprint</code>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submission form -->
+      <div id="submission-form">
+        <h3>Submit Your Artwork</h3>
+        <form id="artwork-submission">
+          <div>
+            <label for="asset-url">Bazar Asset URL:</label>
+            <input type="url" id="asset-url" name="asset-url" placeholder="https://bazar.arweave.net/#/asset/[ASSET_ID]" required>
+          </div>
+          <div>
+            <label for="artwork-virtue">Virtue Category:</label>
+            <select id="artwork-virtue" name="artwork-virtue" required>
+              <option value="">Select a virtue...</option>
+              <option value="Courage">Courage (Lion)</option>
+              <option value="Focus">Focus (Cheetah)</option>
+              <option value="Patience">Patience (Leopard)</option>
+              <option value="Sharing">Sharing (Giraffe)</option>
+              <option value="Unity">Unity (Zebra)</option>
+              <option value="Wisdom">Wisdom (Elephant)</option>
+            </select>
+          </div>
+          <button type="submit" class="lang-button">Submit Artwork</button>
+        </form>
+        <p id="submission-feedback"></p>
+        <div class="hourglass">
+          <div id="hourglass-svg"></div>
+        </div>
+      </div>
+
+      <div id="gallery-link">
+        <a href="gallery.html" target="_blank" class="lang-button">See Entries</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Savanna Legacy Sprint © 2025</p>
+    <p><a href="https://bazar.arweave.net/#/collection/SAVANNA_LEGACY_COLLECTION_ID" target="_blank">Submit on Bazar (Opens July 14, 2025)</a></p>
+  </footer>
+
+  <!-- Script order: bundle → utils → app -->
+  <script src="js/aoconnect.bundle.js"></script>
+  <script type="module" src="js/wallet-utils.js"></script>
+  <script type="module" src="js/ao-utils.js"></script>
+  <script type="module" src="js/submission.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/stamps.js"></script>
 </body>
 </html>

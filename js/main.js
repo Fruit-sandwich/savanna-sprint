@@ -1,15 +1,25 @@
-// Load Bazar SDKs via CDN (replace with actual URLs)
-const loadSDKs = () => {
-    const aoconnectScript = document.createElement('script');
-    aoconnectScript.src = 'https://cdn.jsdelivr.net/npm/@permaweb/aoconnect@latest/dist/browser.js';
-    document.head.appendChild(aoconnectScript);
+//main.js
 
-    const stampjsScript = document.createElement('script');
-    stampjsScript.src = 'https://cdn.jsdelivr.net/npm/@permaweb/stampjs@latest/dist/browser.js';
-    document.head.appendChild(stampjsScript);
+let timerInterval;
+// Load Arweave SDK
+const loadSDKs = () => {
+    // Load Arweave SDK
+    const arweaveScript = document.createElement('script');
+    arweaveScript.src = 'https://unpkg.com/arweave@1.14.4/bundles/web.bundle.js';
+    document.head.appendChild(arweaveScript);
+
+    // Initialize Arweave after script loads
+    arweaveScript.onload = () => {
+        window.arweave = Arweave.init({
+            host: 'arweave.net',
+            port: 443,
+            protocol: 'https'
+        });
+    };
 };
 
 // Countdown timer
+
 function startCountdown() {
     const deadline = new Date("2025-09-21T00:00:00Z").getTime();
     const timerElement = document.getElementById("timer");
@@ -68,18 +78,21 @@ async function loadContent() {
         document.getElementById('rules-sw').innerHTML = content.rules.sw;
         document.getElementById('guidelines-en').innerHTML = content.guidelines.en;
         document.getElementById('guidelines-sw').innerHTML = content.guidelines.sw;
-        document.getElementById('jewel-en').innerHTML = content.wisdom.jewel.en;
-        document.getElementById('jewel-sw').innerHTML = content.wisdom.jewel.sw;
-        document.getElementById('moloch-en').innerHTML = content.wisdom.moloch.en;
-        document.getElementById('moloch-sw').innerHTML = content.wisdom.moloch.sw;
-        document.getElementById('maasai-en').innerHTML = content.wisdom.maasai.en;
-        document.getElementById('maasai-sw').innerHTML = content.wisdom.maasai.sw;
-        document.getElementById('ndume-en').innerHTML = content.wisdom.ndume.en;
-        document.getElementById('ndume-sw').innerHTML = content.wisdom.ndume.sw;
-        document.getElementById('ndovu-en').innerHTML = content.wisdom.ndovu.en;
-        document.getElementById('ndovu-sw').innerHTML = content.wisdom.ndovu.sw;
+
+        // Future sections (commented out for now)
+        // document.getElementById('jewel-en').innerHTML = content.wisdom.jewel.en;
+        // document.getElementById('jewel-sw').innerHTML = content.wisdom.jewel.sw;
+        // document.getElementById('moloch-en').innerHTML = content.wisdom.moloch.en;
+        // document.getElementById('moloch-sw').innerHTML = content.wisdom.moloch.sw;
+        // document.getElementById('maasai-en').innerHTML = content.wisdom.maasai.en;
+        // document.getElementById('maasai-sw').innerHTML = content.wisdom.maasai.sw;
+        // document.getElementById('ndume-en').innerHTML = content.wisdom.ndume.en;
+        // document.getElementById('ndume-sw').innerHTML = content.wisdom.ndume.sw;
+        // document.getElementById('ndovu-en').innerHTML = content.wisdom.ndovu.en;
+        // document.getElementById('ndovu-sw').innerHTML = content.wisdom.ndovu.sw;
     }
 }
+
 
 
 
@@ -115,3 +128,52 @@ window.onload = () => {
         }
     });
 };
+
+// Submission Storage System
+class SubmissionStorage {
+    constructor() {
+        this.storageKey = 'savannaLegacySubmissions';
+    }
+
+    // Get all submissions
+    getSubmissions() {
+        const stored = localStorage.getItem(this.storageKey);
+        return stored ? JSON.parse(stored) : [];
+    }
+
+    // Add a new submission
+    addSubmission(submission) {
+        const submissions = this.getSubmissions();
+        const newSubmission = {
+            id: this.generateId(),
+            assetId: submission.assetId,
+            bazarUrl: submission.bazarUrl,
+            submittedAt: new Date().toISOString(),
+            ...submission
+        };
+        submissions.push(newSubmission);
+        localStorage.setItem(this.storageKey, JSON.stringify(submissions));
+        return newSubmission;
+    }
+
+    // Check if asset ID already exists
+    assetExists(assetId) {
+        const submissions = this.getSubmissions();
+        return submissions.some(sub => sub.assetId === assetId);
+    }
+
+    // Generate unique ID
+    generateId() {
+        return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    }
+
+    // Remove submission (if needed for admin purposes)
+    removeSubmission(id) {
+        const submissions = this.getSubmissions();
+        const filtered = submissions.filter(sub => sub.id !== id);
+        localStorage.setItem(this.storageKey, JSON.stringify(filtered));
+    }
+}
+
+// Initialize submission storage
+window.submissionStorage = new SubmissionStorage();

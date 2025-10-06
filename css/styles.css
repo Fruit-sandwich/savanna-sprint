@@ -217,24 +217,113 @@ footer {
     font-size: 1rem;
 }
 
+
+/* Submission Form Styling */
+#submission-form {
+    background: rgba(60, 40, 23, 0.3);
+    padding: 30px;
+    border-radius: 12px;
+    margin: 30px 0;
+    border: 2px solid #b29c86ff;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+#submission-form h3 {
+    text-align: center;
+    color: #ffe793ff;
+    margin-bottom: 25px;
+    font-size: 1.5em;
+}
+
+#submission-form form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#submission-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffe793ff;
+    font-weight: bold;
+}
+
+#submission-form input,
+#submission-form select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #b29c86ff;
+    border-radius: 6px;
+    background: rgba(255, 231, 147, 0.1);
+    color: #ffe793ff;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* Better dropdown styling for submission form */
+#submission-form select {
+    background: #262626; /* solid dark background for readability */
+    color: #ffe793ff;     /* golden text */
+    appearance: none;     /* removes default OS arrow styling */
+    cursor: pointer;
+}
+
+#submission-form select:focus {
+    outline: 2px solid #ffe793ff;
+    background: #1c1816; /* slightly darker focus background */
+}
+
+#submission-form select option {
+    background: #1c1816;  /* dark background */
+    color: #ffe793ff;     /* gold text */
+    padding: 10px;
+}
+
+#submission-form button {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #ffe793ff;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+#submission-form button:hover {
+    background: #ffd633;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+#submission-feedback {
+    color: #ffe793ff;
+    text-align: center;
+    margin-top: 15px;
+    min-height: 20px;
+}
+
+
 @media (max-width: 600px) {
     #rules .rules-list ul,
     #rules .guidelines-list ul {
         padding-left: 1.5rem;
     }
-    }
+
     #rules .rules-list li,
     #rules .guidelines-list li {
         padding-left: 1.2rem;
         font-size: 1rem;
     }
+
     #rules .rules-list li::before,
     #rules .guidelines-list li::before {
         font-size: 1rem;
-    }
-    r#rules .rules-list ul,
-    #rules .guidelines-list ul {
-        padding-left: 1.5rem;
     }
 }
 #countdown {
@@ -246,27 +335,179 @@ footer {
 @media (max-width: 600px) {
     body {
         font-size: 1.1rem;
-        padding: 0 clamp(0.5rem, 3%, 2rem);
+        padding: 0 15px;
     }
+
+    .title {
+        font-size: 1.8rem;
+        margin: 20px 0;
+        line-height: 1.2;
+    }
+
     .story-container,
     .kizungu,
     .kiswahili {
-        padding-bottom: 50px;
+        padding-bottom: 30px;
+        max-width: 100%;
     }
+
     .lang-button {
-        padding: 6px 12px;
+        padding: 8px 14px;
         font-size: 0.9rem;
+        white-space: nowrap;
     }
+
     .lang-container {
         flex-wrap: wrap;
         gap: 10px;
+        justify-content: center;
+        margin-bottom: 20px;
     }
+
+    #genesis,
+    #rules {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    img {
+        max-width: 100%;
+        margin: 15px auto;
+    }
+
+    /* Submission form mobile styles */
+    #submission-form {
+        margin: 20px 0 !important;
+        padding: 20px !important;
+    }
+
+    #submission-form h3 {
+        font-size: 1.3em !important;
+        margin-bottom: 20px !important;
+    }
+
+    #submission-form form {
+        max-width: 100% !important;
+    }
+
+    #submission-form input,
+    #submission-form select {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+        padding: 14px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+    }
+
+    #submission-form button {
+        padding: 14px !important;
+        font-size: 16px !important;
+    }
+
+    #submission-feedback {
+        font-size: 0.9em !important;
+        line-height: 1.4;
+    }
+
+    /* Community section */
+    #community-section {
+        padding: 0 10px;
+        margin: 20px 0;
+    }
+
+    #community-section h3 {
+        font-size: 1.2rem;
+        margin: 15px 0;
+    }
+
+    /* Gallery link */
+    #gallery-link {
+        margin: 20px 0;
+    }
+
+    /* Virtue titles */
+    .virtue-title {
+        font-size: 1.3rem;
+        margin: 15px auto;
+    }
+
+    /* Wisdom stories section */
+    #wisdom-stories {
+        padding: 0 10px;
+    }
+
+    #wisdom-stories h2 {
+        font-size: 1.2rem;
+        margin: 20px 0 15px 0;
+    }
+
+    /* Footer */
     footer {
         font-size: 0.9rem;
+        margin-top: 30px;
+        padding: 20px 10px;
     }
+
+    footer p {
+        margin: 8px 0;
+    }
+
+    footer a {
+        display: inline-block;
+        margin-top: 5px;
+    }
+
+    /* Countdown timer */
     #countdown {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        margin: 15px auto;
+        padding: 0 10px;
+        line-height: 1.3;
     }
+
+    /* Rules section */
+    #rules h3,
+    #rules h4 {
+        font-size: 1.2rem;
+        margin: 15px 0 10px 0;
+    }
+
+    /* Hourglass positioning */
+    .hourglass {
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 40px !important;
+        height: 40px !important;
+    }
+}
+
+/* Additional mobile styles for smaller screens */
+@media (max-width: 400px) {
+    body {
+        font-size: 1rem;
+        padding: 0 12px;
+    }
+
+    .title {
+        font-size: 1.6rem;
+    }
+
+    .lang-button {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+
+    #submission-form {
+        padding: 15px !important;
+    }
+
+    #countdown {
+        font-size: 1rem;
+    }
+}
+#artwork-submission button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .grid-gallery {
     display: grid;
@@ -281,19 +522,63 @@ footer {
     object-fit: cover;
 }
 
-* Additional styles for X posts */
-.x-post {
-    border: 1px solid #fde1bc;
+/* Feedback status styles */
+.status-success {
+  color: #4CAF50; /* green */
+}
+.status-error {
+  color: #ff4d4d; /* red */
+}
+.status-warning {
+  color: #ffcc00; /* yellow */
+}
+
+button[disabled],
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #b29c86 !important; /* muted version of your accent */
+}
+
+/* Unified Lang + Wallet container */
+.lang-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
     padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
     max-width: 700px;
-    text-align: left;
+    margin: 0 auto;
 }
-.x-post a {
+
+/* Group for language buttons */
+.lang-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Wallet button unified style */
+#connect-wallet-btn {
+    padding: 10px 18px;
+    background: #ffe793ff;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+#connect-wallet-btn:hover {
+    background: #ffd633;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+#wallet-address {
+    margin-top: 6px;
+    text-align: right;
+    font-size: 0.9rem;
     color: #ffe793ff;
-    text-decoration: none;
-}
-.x-post a:hover {
-    text-decoration: underline;
 }
