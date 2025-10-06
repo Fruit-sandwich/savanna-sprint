@@ -2,6 +2,7 @@
 // Savanna Gallery Script
 
 import { fetchSubmissionsFromAO, fetchAssetMetadata } from "./ao-utils.js";
+import { checkWalletSession } from "./wallet-utils.js";
 
 // --------------------------------------------
 // Global State
@@ -136,7 +137,7 @@ async function loadGallery(page = 1, limit = 10) {
     const assetsWithData = await Promise.all(
       pageSubmissions.map(async sub => {
         const arweaveData = await fetchAssetFromArweave(sub.assetId);
-        return { ...arweaveData, ...sub }; // ✅ AO submission fields override Arweave (keeps Virtue)
+        return { ...arweaveData, ...sub }; // AO submission fields override Arweave
       })
     );
 
@@ -173,7 +174,7 @@ async function filterGallery(virtue) {
     const submissions = (loadCacheFromLocalStorage() || await fetchSubmissionsFromAO());
     const filtered = virtue === "All"
       ? submissions
-      : submissions.filter(sub => (sub.virtue || "").toLowerCase() === virtue.toLowerCase()); // ✅ use normalized .virtue
+      : submissions.filter(sub => (sub.virtue || "").toLowerCase() === virtue.toLowerCase());
 
     if (!filtered.length) {
       gallery.innerHTML = `<div class='empty-message'>No submissions for virtue: ${virtue}</div>`;
@@ -183,11 +184,16 @@ async function filterGallery(virtue) {
     const assetsWithData = await Promise.all(
       filtered.map(async sub => {
         const arweaveData = await fetchAssetFromArweave(sub.assetId);
-        return { ...arweaveData, ...sub }; // ✅ AO values preserved
+        return { ...arweaveData, ...sub };
       })
     );
 
+    // Add .filtering class to disable transitions
+    gallery.classList.add("filtering");
     gallery.innerHTML = assetsWithData.map(a => createAssetHtml(a)).join("");
+    // Remove .filtering class after rendering
+    setTimeout(() => gallery.classList.remove("filtering"), 0);
+
     const loadMore = document.getElementById("load-more");
     if (loadMore) loadMore.style.display = "none";
   } catch (err) {
@@ -239,6 +245,7 @@ function loadMoreAssets() {
 // Init
 // --------------------------------------------
 window.addEventListener("load", () => {
+  checkWalletSession(); // Ensure wallet state is initialized
   setTimeout(() => loadGallery(1, 10), 500);
 });
 

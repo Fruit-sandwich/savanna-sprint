@@ -2,7 +2,7 @@
 // Handles artwork submission and confirmation for Savanna Legacy Sprint.
 
 import { AO_PROCESS_ID, validateBazarUrl, fetchAssetMetadata } from "./ao-utils.js";
-import { getWalletAddress } from "./wallet-utils.js";
+import { getWalletAddress, showFeedback, isValidArweaveAddress } from "./wallet-utils.js";
 
 // -----------------------------
 // Small UI helper
@@ -28,7 +28,7 @@ async function sendAoMessage(ao, submission, signer) {
       dispatch: true
     });
   } catch (err) {
-    console.warn("⚠️ Dispatch path failed, retrying without dispatch:", err);
+    console.debug("⚠️ Dispatch path failed, retrying without dispatch:", err);
     return await ao.message({
       process: AO_PROCESS_ID,
       signer,
@@ -47,12 +47,12 @@ const TIMESTAMP_KEY = "savannaGalleryTimestamp";
 function addSubmissionToCache(submission) {
   try {
     const cached = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    cached.unshift(submission); // put newest first
+    cached.unshift(submission); // Put newest first
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cached));
     localStorage.setItem(TIMESTAMP_KEY, Date.now().toString());
-    console.log("[Submission] ✅ Added to localStorage cache");
+    console.debug("[Submission] ✅ Added to localStorage cache");
   } catch (err) {
-    console.warn("[Submission] Failed to update cache:", err);
+    console.debug("[Submission] Failed to update cache:", err);
   }
 }
 
@@ -66,7 +66,6 @@ async function confirmSubmission(ao, sentMsg, selectedVirtue, txId, enrichedSubm
     return `
       🎉 Submission stored under "<strong>${selectedVirtue}</strong>"!<br>
       TX: <a href="https://arweave.net/${txId}" target="_blank">${txId}</a><br>
-
     `;
   }
 
@@ -92,7 +91,7 @@ async function confirmSubmission(ao, sentMsg, selectedVirtue, txId, enrichedSubm
 
         if (replyData.status === "ok") {
           setFeedback(successMessage());
-          addSubmissionToCache(enrichedSubmission); // ✅ add to gallery cache
+          addSubmissionToCache(enrichedSubmission);
         } else if (replyData.status === "duplicate") {
           setFeedback(`⚠️ Duplicate submission rejected.<br>TX: <code>${txId}</code>`, "#ff4d4d");
         } else {
@@ -101,7 +100,7 @@ async function confirmSubmission(ao, sentMsg, selectedVirtue, txId, enrichedSubm
       }
     }
   } catch (err) {
-    console.warn("Direct result() failed:", err.message);
+    console.debug("Direct result() failed:", err.message);
   }
 
   // 2. Polling fallback
@@ -145,7 +144,7 @@ async function confirmSubmission(ao, sentMsg, selectedVirtue, txId, enrichedSubm
           }
         }
       } catch (e) {
-        console.warn("Polling failed:", e);
+        console.debug("Polling failed:", e);
       }
       await new Promise(r => setTimeout(r, 10000));
     }
@@ -158,6 +157,29 @@ async function confirmSubmission(ao, sentMsg, selectedVirtue, txId, enrichedSubm
 }
 
 // -----------------------------
+// Dynamic AOconnect loader
+// -----------------------------
+async function loadAOconnect() {
+  if (window.AOconnect && window.AOconnect.connect && window.AOconnect.createDataItemSigner) {
+    return window.AOconnect;
+  }
+  showFeedback("Loading AOconnect library...", "#ffcc00");
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "js/aoconnect.bundle.js";
+    script.onload = () => {
+      if (window.AOconnect && window.AOconnect.connect && window.AOconnect.createDataItemSigner) {
+        resolve(window.AOconnect);
+      } else {
+        reject(new Error("Failed to load AOconnect"));
+      }
+    };
+    script.onerror = () => reject(new Error("Failed to load AOconnect script"));
+    document.head.appendChild(script);
+  });
+}
+
+// -----------------------------
 // Submission entrypoint
 // -----------------------------
 async function submitArtwork(assetUrl, selectedVirtue) {
@@ -165,8 +187,31 @@ async function submitArtwork(assetUrl, selectedVirtue) {
   if (submitBtn) submitBtn.disabled = true;
 
   try {
-    const walletAddress = getWalletAddress();
-    if (!walletAddress) throw new Error("Please connect your wallet first!");
+    let walletAddress = getWalletAddress();
+    if (!walletAddress) {
+      showFeedback("Please connect your wallet first!", "#ff4d4d");
+      throw new Error("Wallet not connected");
+    }
+
+    // Validate selectedVirtue
+    if (!selectedVirtue) {
+      showFeedback("Please select a virtue category!", "#ff4d4d");
+      throw new Error("Virtue category is required");
+    }
+
+    // Re-validate wallet session
+    if (window.arweaveWallet) {
+      try {
+        const currentAddress = await window.arweaveWallet.getActiveAddress();
+        if (!isValidArweaveAddress(currentAddress) || currentAddress !== walletAddress) {
+          showFeedback("Wallet session invalid or changed. Please reconnect.", "#ff4d4d");
+          throw new Error("Invalid wallet session");
+        }
+      } catch (err) {
+        showFeedback("Wallet session expired. Please reconnect.", "#ff4d4d");
+        throw new Error("Wallet session expired");
+      }
+    }
 
     // 1. Validate URL
     const validation = validateBazarUrl(assetUrl);
@@ -182,7 +227,7 @@ async function submitArtwork(assetUrl, selectedVirtue) {
     const submission = {
       AssetId: assetId,
       BazarUrl: assetUrl,
-      Virtue: selectedVirtue, // ✅ always preserved
+      Virtue: selectedVirtue,
       Title: assetData.title || "Untitled",
       Description: assetData.description || "",
       Creator: assetData.creator || walletAddress,
@@ -190,10 +235,10 @@ async function submitArtwork(assetUrl, selectedVirtue) {
       Timestamp: Math.floor(Date.now() / 1000)
     };
 
-    // 4. Enriched object for gallery/cache (AO wins over Arweave if overlap)
+    // 4. Enriched object for gallery/cache
     const enrichedSubmission = {
       ...assetData,
-      ...submission, // ✅ AO values override (Virtue stays correct)
+      ...submission,
       id: assetId,
       assetId,
       creatorFormatted: walletAddress.slice(0, 6) + "..." + walletAddress.slice(-4),
@@ -204,26 +249,30 @@ async function submitArtwork(assetUrl, selectedVirtue) {
     };
 
     // 5. Init AO signer + connection
-    const { connect, createDataItemSigner } = window.AOconnect;
+    const { connect, createDataItemSigner } = await loadAOconnect();
     const signer = createDataItemSigner(window.arweaveWallet);
+    if (!signer) {
+      showFeedback("Failed to initialize wallet signer.", "#ff4d4d");
+      throw new Error("Signer initialization failed");
+    }
     const ao = connect();
 
-    // ✅ Send
+    // 6. Send
     const sentMsg = await sendAoMessage(ao, submission, signer);
 
     const txId = sentMsg.id || sentMsg;
     setFeedback(`✅ Artwork submitted! Waiting for confirmation…<br>
       <a href="https://arweave.net/${txId}" target="_blank">View TX</a>`, "#4CAF50");
 
-    // 6. Confirm submission
+    // 7. Confirm submission
     await confirmSubmission(ao, sentMsg, selectedVirtue, txId, enrichedSubmission);
 
-    // 7. Reset form
+    // 8. Reset form
     document.getElementById("artwork-submission").reset();
 
   } catch (err) {
     console.error("Submission failed:", err);
-    setFeedback(`⚠️ Error: ${err.message || err}`, "#ff4d4d");
+    showFeedback(`⚠️ Error: ${err.message || err}`, "#ff4d4d");
   } finally {
     if (submitBtn) submitBtn.disabled = false;
   }
@@ -253,6 +302,6 @@ window.scrollToSubmission = function (assetId) {
     el.classList.add("highlighted");
     setTimeout(() => el.classList.remove("highlighted"), 2000);
   } else {
-    console.warn("Submission not found in gallery:", assetId);
+    console.debug("Submission not found in gallery:", assetId);
   }
 };

@@ -1,3 +1,4 @@
+//stamps.js
 async function addStamp(assetId) {
     const feedback = document.getElementById("submission-feedback");
     try {
