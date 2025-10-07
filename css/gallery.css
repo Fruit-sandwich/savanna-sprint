@@ -276,14 +276,14 @@ footer a:hover {
 }
 
 .asset-info h3 a {
-    color: #4CAF50; /* Changed to green */
+    color: #deca81ff; /* Changed to green */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .asset-info h3 a:hover {
-    color: #66BB6A; /* Lighter green on hover */
-    text-shadow: 0 0 8px rgba(102, 187, 106, 0.5);
+    color: #fee076ff; /* Lighter green on hover */
+    text-shadow: 0 0 8px rgba(177, 187, 102, 0.5);
 }
 
 /* Description */
@@ -380,11 +380,11 @@ footer a:hover {
 }
 
 .asset-links a {
-    color: #4CAF50; /* Changed to green */
+    color: #ffe793ff; 
     text-decoration: none;
     font-size: 0.9em;
     padding: 6px 12px;
-    border: 1px solid rgba(76, 175, 80, 0.3);
+    border: 1px solid rgba(167, 175, 76, 0.3);
     border-radius: 6px;
     transition: all 0.3s ease;
     flex: 1;
@@ -393,8 +393,8 @@ footer a:hover {
 
 .asset-links a:hover {
     background: rgba(76, 175, 80, 0.1);
-    border-color: #66BB6A; /* Lighter green on hover */
-    color: #66BB6A;
+    border-color: #ffe793ff; 
+    color: #fde1bc;
     transform: translateY(-1px);
 }
 

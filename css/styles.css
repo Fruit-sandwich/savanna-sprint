@@ -35,6 +35,13 @@ body {
     color: #262626;
     outline: 2px solid #fde1bc;
 }
+.text-link{
+    color: #2dc400;
+}
+
+.text-link:hover{
+    color: #3bff00;
+}
 .lang-button.active {
     background-color: #4a4725ff;
     color: #eeca89;
