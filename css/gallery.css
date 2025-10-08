@@ -57,12 +57,12 @@ footer {
 }
 
 footer a {
-    color: #4CAF50; /* Changed to green */
+    color: #4CAF50;
     text-decoration: none;
 }
 
 footer a:hover {
-    color: #66BB6A; /* Lighter green on hover */
+    color: #66BB6A;
     text-decoration: underline;
 }
 
@@ -91,7 +91,7 @@ footer a:hover {
     margin: 1rem auto;
     font-size: 1rem;
     min-height: 1.5em;
-    max-width: 1400px; /* Match grid-gallery width */
+    max-width: 1400px;
     color: #b29c86ff;
 }
 
@@ -102,7 +102,7 @@ footer a:hover {
     justify-content: center;
     gap: 12px;
     margin: 20px auto;
-    max-width: 1400px; /* Match grid-gallery width */
+    max-width: 1400px;
 }
 
 #virtue-filters button {
@@ -121,13 +121,13 @@ footer a:hover {
 /* Gallery-specific styles */
 .grid-gallery {
     display: grid;
-    justify-content: center; /* Center grid items */
+    justify-content: center;
     gap: 25px;
     max-width: 1400px;
-    min-width: 300px; /* Prevent collapse with few items */
+    min-width: 300px;
     margin: 30px auto;
     padding: 0 20px;
-    min-height: 500px; /* Prevent layout jumps */
+    min-height: 500px;
 }
 
 /* Center empty state messages in grid */
@@ -217,7 +217,7 @@ footer a:hover {
     border: 1px solid rgba(178, 156, 134, 0.2);
     border-radius: 12px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Restrict transitions */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
@@ -226,7 +226,7 @@ footer a:hover {
 }
 
 .gallery-item.filtering {
-    transition: none; /* Disable transitions during filtering */
+    transition: none;
 }
 
 .gallery-item:hover {
@@ -269,21 +269,33 @@ footer a:hover {
     font-weight: bold;
     line-height: 1.3;
     min-height: 3.2em;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between badge and title */
+    overflow: hidden;
+}
+
+.virtue-badge-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0; /* Prevent SVG from shrinking */
+    object-fit: contain;
+    color: #ffe793ff;
+}
+
+.asset-info h3 a {
+    color: #ffe793ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.asset-info h3 a {
-    color: #deca81ff; /* Changed to green */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
 .asset-info h3 a:hover {
-    color: #fee076ff; /* Lighter green on hover */
-    text-shadow: 0 0 8px rgba(177, 187, 102, 0.5);
+    color: #ffe793ff;
+    text-shadow: 0 0 4px #fff5d1a0;
 }
 
 /* Description */
@@ -342,15 +354,15 @@ footer a:hover {
 
 /* Creator Link */
 .creator-link {
-    color: #4CAF50; /* Changed to green */
+    color: #ffe793ff;
     text-decoration: none;
-    border-bottom: 1px dotted rgba(76, 175, 80, 0.5);
+    border-bottom: 1px dotted rgba(196, 201, 88, 0.8);
     transition: all 0.3s ease;
 }
 
 .creator-link:hover {
-    color: #66BB6A; /* Lighter green on hover */
-    border-bottom-color: #66BB6A;
+    color: #fff;
+    border-bottom-color: #fff;
 }
 
 /* Topics Tags */
@@ -380,11 +392,11 @@ footer a:hover {
 }
 
 .asset-links a {
-    color: #ffe793ff; 
+    color: #ffe793ff;
     text-decoration: none;
     font-size: 0.9em;
     padding: 6px 12px;
-    border: 1px solid rgba(167, 175, 76, 0.3);
+    border: 1px solid #ffe7934b;
     border-radius: 6px;
     transition: all 0.3s ease;
     flex: 1;
@@ -392,9 +404,9 @@ footer a:hover {
 }
 
 .asset-links a:hover {
-    background: rgba(76, 175, 80, 0.1);
-    border-color: #ffe793ff; 
-    color: #fde1bc;
+    background: rgba(10, 43, 0, 0.8);
+    border-color: #3bff00;
+    color: #3bff00;
     transform: translateY(-1px);
 }
 
@@ -458,6 +470,11 @@ footer a:hover {
     .asset-info h3 {
         font-size: 1.1em;
         min-height: 2.8em;
+    }
+
+    .virtue-badge-icon {
+        width: 20px;
+        height: 20px;
     }
 
     .asset-description {

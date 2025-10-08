@@ -210,7 +210,32 @@ function renderGalleryItems(assets, gallery) {
 }
 
 function createAssetHtml(asset) {
+  // Map virtues to SVG paths
+  const virtueToSvg = {
+    courage: "assets/paw-symbol.svg",
+    focus: "assets/paw-symbol.svg",
+    patience: "assets/paw-symbol.svg",
+    sharing: "assets/sharing-symbol.svg",
+    unity: "assets/unity-symbol.svg",
+    wisdom: "assets/wisdom-symbol.svg"
+  };
+
+  // Get SVG path based on asset.virtue (case-insensitive)
+  const virtue = (asset.virtue || "").toLowerCase();
+  const svgPath = virtueToSvg[virtue] || "";
+  const virtueSvg = svgPath ? `<img src="${svgPath}" alt="${asset.virtue} badge" class="virtue-badge-icon">` : "";
   const virtueHtml = asset.virtue ? `<span class="virtue-badge">${asset.virtue}</span>` : "";
+
+  // Create a link for the creator to Bazar profile
+  const creatorLink = asset.creator && asset.creator !== "Anonymous" && /^[a-zA-Z0-9_-]{43,44}$/.test(asset.creator)
+    ? `<a href="https://bazar.arweave.net/#/profile/${asset.creator}"
+           target="_blank"
+           class="creator-link"
+           title="View creator profile on Bazar: ${asset.creator}">
+           ${asset.creatorFormatted}
+        </a>`
+    : asset.creatorFormatted;
+
   return `
     <div class="gallery-item" data-asset-id="${asset.id}">
       <div class="asset-image">
@@ -218,11 +243,11 @@ function createAssetHtml(asset) {
              onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0IyOUM4NiIvPg=='; this.style.objectFit='contain';">
       </div>
       <div class="asset-info">
-        <h3><a href="${asset.bazarUrl}" target="_blank">${asset.title}</a></h3>
+        <h3>${virtueSvg}<a href="${asset.bazarUrl}" target="_blank">${asset.title}</a></h3>
         <div class="asset-description">${asset.description || ""}</div>
         <div class="asset-metadata">
           ${virtueHtml ? `<div><strong>Virtue:</strong> ${virtueHtml}</div>` : ""}
-          <div><strong>Creator:</strong> ${asset.creatorFormatted}</div>
+          <div><strong>Creator:</strong> ${creatorLink}</div> <!-- Use creatorLink -->
           ${asset.dateCreated ? `<div><strong>Created:</strong> ${asset.dateCreated}</div>` : ""}
         </div>
         <div class="asset-links">
