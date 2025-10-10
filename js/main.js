@@ -1,27 +1,12 @@
 //main.js
 
-let timerInterval;
-// Load Arweave SDK
-const loadSDKs = () => {
-    // Load Arweave SDK
-    const arweaveScript = document.createElement('script');
-    arweaveScript.src = 'https://unpkg.com/arweave@1.14.4/bundles/web.bundle.js';
-    document.head.appendChild(arweaveScript);
-
-    // Initialize Arweave after script loads
-    arweaveScript.onload = () => {
-        window.arweave = Arweave.init({
-            host: 'arweave.net',
-            port: 443,
-            protocol: 'https'
-        });
-    };
-};
 
 // Countdown timer
 
+let timerInterval;
+
 function startCountdown() {
-    const deadline = new Date("2025-09-21T00:00:00Z").getTime();
+    const deadline = new Date("2025-12-20T00:00:00Z").getTime();
     const timerElement = document.getElementById("timer");
 
     function updateTimer() {
@@ -43,8 +28,9 @@ function startCountdown() {
     }
 
     updateTimer();
-    const timerInterval = setInterval(updateTimer, 1000);
+    timerInterval = setInterval(updateTimer, 1000); // 👈 remove const here
 }
+
 
 // Language toggle
 function switchLanguage(lang) {
@@ -68,30 +54,28 @@ function switchLanguage(lang) {
 
 // Load content from JSON
 async function loadContent() {
+  try {
     const response = await fetch('data/content.json');
     const content = await response.json();
-    // Only load content relevant to index.html
-    if (document.getElementById('story-en')) {
-        document.getElementById('story-en').innerHTML = content.story.en;
-        document.getElementById('story-sw').innerHTML = content.story.sw;
-        document.getElementById('rules-en').innerHTML = content.rules.en;
-        document.getElementById('rules-sw').innerHTML = content.rules.sw;
-        document.getElementById('guidelines-en').innerHTML = content.guidelines.en;
-        document.getElementById('guidelines-sw').innerHTML = content.guidelines.sw;
 
-        // Future sections (commented out for now)
-        // document.getElementById('jewel-en').innerHTML = content.wisdom.jewel.en;
-        // document.getElementById('jewel-sw').innerHTML = content.wisdom.jewel.sw;
-        // document.getElementById('moloch-en').innerHTML = content.wisdom.moloch.en;
-        // document.getElementById('moloch-sw').innerHTML = content.wisdom.moloch.sw;
-        // document.getElementById('maasai-en').innerHTML = content.wisdom.maasai.en;
-        // document.getElementById('maasai-sw').innerHTML = content.wisdom.maasai.sw;
-        // document.getElementById('ndume-en').innerHTML = content.wisdom.ndume.en;
-        // document.getElementById('ndume-sw').innerHTML = content.wisdom.ndume.sw;
-        // document.getElementById('ndovu-en').innerHTML = content.wisdom.ndovu.en;
-        // document.getElementById('ndovu-sw').innerHTML = content.wisdom.ndovu.sw;
-    }
+    const map = [
+      ["story-en", content.story.en],
+      ["story-sw", content.story.sw],
+      ["rules-en", content.rules.en],
+      ["rules-sw", content.rules.sw],
+      ["guidelines-en", content.guidelines.en],
+      ["guidelines-sw", content.guidelines.sw]
+    ];
+
+    map.forEach(([id, html]) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = html;
+    });
+  } catch (err) {
+    console.error("Error loading content.json:", err);
+  }
 }
+
 
 
 
@@ -102,19 +86,10 @@ window.onload = () => {
     if (document.getElementById('timer')) startCountdown();
     loadContent();
     switchLanguage('english');
-    if (document.getElementById('badges-svg')) {
-        fetch('assets/badges.svg').then(res => res.text()).then(svg => {
-            document.getElementById('badges-svg').innerHTML = svg;
-        });
-    }
-    if (document.getElementById('hourglass-svg')) {
-        fetch('assets/hourglass.svg').then(res => res.text()).then(svg => {
-            document.getElementById('hourglass-svg').innerHTML = svg;
-        });
-    }
+
 
     // SVG badge hover effects
-    const badges = ["sharing-badge", "wisdom-badge", "paw-badge", "zebra-badge"];
+    const badges = ["sharing-symbol", "wisdom-symbol", "paw-symbol", "unity-symbol"];
     badges.forEach((id) => {
         const badge = document.getElementById(id);
         if (badge) {
@@ -127,6 +102,23 @@ window.onload = () => {
             });
         }
     });
+};
+
+// Load Arweave SDK
+const loadSDKs = () => {
+    // Load Arweave SDK
+    const arweaveScript = document.createElement('script');
+    arweaveScript.src = 'https://unpkg.com/arweave@1.14.4/bundles/web.bundle.js';
+    document.head.appendChild(arweaveScript);
+
+    // Initialize Arweave after script loads
+    arweaveScript.onload = () => {
+        window.arweave = Arweave.init({
+            host: 'arweave.net',
+            port: 443,
+            protocol: 'https'
+        });
+    };
 };
 
 // Submission Storage System
